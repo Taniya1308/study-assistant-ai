@@ -1,5 +1,6 @@
 import { generateWithAI } from "../services/aiService.js";
 import { buildPrompt } from "../utils/promptBuilder.js";
+import { cleanJSON } from "../utils/cleanJSON.js";
 export const generateContent = async (req, res) => {
   try {
     const { text, type } = req.body;
@@ -13,12 +14,16 @@ export const generateContent = async (req, res) => {
     // ✅ Call Gemini
     const aiResponse = await generateWithAI(prompt);
 
+    const cleaned = cleanJSON(aiResponse);
+
+    const parsed = JSON.parse(cleaned);
+
     console.log("Gemini Response:");
     console.log(aiResponse);
 
     res.status(200).json({
       success: true,
-      data: aiResponse,
+      data: parsed,
     });
   } catch (error) {
     console.error("Controller Error:", error);
