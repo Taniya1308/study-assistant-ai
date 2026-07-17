@@ -1,4 +1,5 @@
 import { generateWithAI } from "../services/aiService.js";
+import { buildPrompt } from "../utils/promptBuilder.js";
 export const generateContent = async (req, res) => {
   try {
     const { text, type } = req.body;
@@ -7,33 +8,7 @@ export const generateContent = async (req, res) => {
     console.log("Type:", type);
     console.log("Text:", text);
 
-    const prompt = `
-You are an AI Study Assistant.
-
-Generate 5 flashcards.
-
-Return ONLY valid JSON.
-
-Schema:
-
-{
-  "flashcards": [
-    {
-      "question": "",
-      "answer": ""
-    }
-  ]
-}
-
-Rules:
-- Return only JSON.
-- No markdown.
-- No explanation.
-- No code fences.
-
-Topic:
-${text}
-`;
+    const prompt = buildPrompt(text, type);
 
     // ✅ Call Gemini
     const aiResponse = await generateWithAI(prompt);
