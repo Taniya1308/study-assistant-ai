@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Quiz = ({ quiz }) => {
+  const [currentQuiz, setCurrentQuiz] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [wrongQuestions, setWrongQuestions] = useState([]);
 
-  // Prevent crash if quiz is empty
-  if (!quiz || quiz.length === 0) {
+  // Update quiz whenever parent sends a new quiz
+  useEffect(() => {
+    setCurrentQuiz(quiz);
+    setCurrentQuestion(0);
+    setSelectedAnswer("");
+    setScore(0);
+    setShowResult(false);
+    setWrongQuestions([]);
+  }, [quiz]);
+
+  if (!currentQuiz || currentQuiz.length === 0) {
     return <div className="text-center mt-10">No quiz available.</div>;
   }
 
@@ -18,18 +28,32 @@ const Quiz = ({ quiz }) => {
       return;
     }
 
-    if (selectedAnswer === quiz[currentQuestion].correctAnswer) {
-      setScore(score + 1);
+    if (selectedAnswer === currentQuiz[currentQuestion].correctAnswer) {
+      setScore((prev) => prev + 1);
     } else {
-      setWrongQuestions([...wrongQuestions, quiz[currentQuestion]]);
+      setWrongQuestions((prev) => [...prev, currentQuiz[currentQuestion]]);
     }
 
-    if (currentQuestion === quiz.length - 1) {
+    if (currentQuestion === currentQuiz.length - 1) {
       setShowResult(true);
     } else {
-      setCurrentQuestion(currentQuestion + 1);
+      setCurrentQuestion((prev) => prev + 1);
       setSelectedAnswer("");
     }
+  };
+
+  const retestWrongAnswers = () => {
+    if (wrongQuestions.length === 0) {
+      alert("Perfect! You answered every question correctly.");
+      return;
+    }
+
+    setCurrentQuiz(wrongQuestions);
+    setCurrentQuestion(0);
+    setSelectedAnswer("");
+    setScore(0);
+    setWrongQuestions([]);
+    setShowResult(false);
   };
 
   if (showResult) {
@@ -40,8 +64,15 @@ const Quiz = ({ quiz }) => {
         <p className="mt-6 text-xl">Your Score</p>
 
         <h1 className="text-5xl font-bold mt-4">
-          {score} / {quiz.length}
+          {score} / {currentQuiz.length}
         </h1>
+
+        <button
+          onClick={retestWrongAnswers}
+          className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg"
+        >
+          Retest Wrong Answers
+        </button>
       </div>
     );
   }
@@ -50,16 +81,20 @@ const Quiz = ({ quiz }) => {
     <div className="max-w-3xl mx-auto mt-10 bg-white shadow rounded-xl p-6">
       <h2 className="text-2xl font-bold mb-6">Quiz</h2>
 
+      <p className="mb-4 text-gray-500">
+        Question {currentQuestion + 1} of {currentQuiz.length}
+      </p>
+
       <h3 className="text-xl font-semibold">
-        {quiz[currentQuestion].question}
+        {currentQuiz[currentQuestion].question}
       </h3>
 
       <div className="mt-6 space-y-3">
-        {quiz[currentQuestion].options.map((option, index) => (
+        {currentQuiz[currentQuestion].options.map((option, index) => (
           <button
             key={index}
             onClick={() => setSelectedAnswer(option)}
-            className={`w-full border rounded-lg p-3 text-left ${
+            className={`w-full border rounded-lg p-3 text-left transition ${
               selectedAnswer === option
                 ? "bg-blue-600 text-white"
                 : "hover:bg-blue-100"
@@ -70,14 +105,12 @@ const Quiz = ({ quiz }) => {
         ))}
       </div>
 
-      <div className="mt-6">
-        <button
-          onClick={submitAnswer}
-          className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
-        >
-          Submit
-        </button>
-      </div>
+      <button
+        onClick={submitAnswer}
+        className="mt-8 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg"
+      >
+        Submit
+      </button>
     </div>
   );
 };
