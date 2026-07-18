@@ -4,31 +4,43 @@ import { generateContent } from "../services/api";
 const TopicForm = ({ setFlashcards, setQuiz }) => {
   const [text, setText] = useState("");
   const [type, setType] = useState("flashcards");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleGenerate = async () => {
+    if (text.trim() === "") {
+      alert("Please enter a topic or study notes.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
     try {
       const response = await generateContent({
-        text: text,
-        type: type,
+        text,
+        type,
       });
 
-      console.log(response.data);
+      console.log("Response:", response);
+
       if (type === "flashcards") {
-        setFlashcards(response.data.data.flashcards || []);
-        setQuiz(response.data.data.quiz || []);
+        setFlashcards(response.data.flashcards || []);
         setQuiz([]);
       } else {
         setQuiz(response.data.quiz || []);
         setFlashcards([]);
       }
     } catch (error) {
-      console.error("Error calling backend:");
       console.error(error);
+      setError("Failed to generate content.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
+    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 mt-8">
       <label className="block font-semibold mb-2">Paste your notes</label>
 
       <textarea
@@ -48,17 +60,23 @@ const TopicForm = ({ setFlashcards, setQuiz }) => {
           className="border rounded-lg px-4 py-2 w-full md:w-60"
         >
           <option value="flashcards">Flashcards</option>
-
           <option value="quiz">Quiz</option>
         </select>
       </div>
 
       <button
         onClick={handleGenerate}
-        className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg w-full md:w-auto"
+        disabled={loading}
+        className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg w-full md:w-auto disabled:bg-gray-400"
       >
-        Generate
+        {loading ? "Generating..." : "Generate"}
       </button>
+
+      {error && (
+        <div className="mt-4 bg-red-100 text-red-700 border border-red-300 p-3 rounded-lg">
+          {error}
+        </div>
+      )}
     </div>
   );
 };

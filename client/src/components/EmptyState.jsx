@@ -1,9 +1,11 @@
 const EmptyState = () => {
   return (
-    <div className="text-center mt-20 text-gray-500">
-      <h2 className="text-2xl font-semibold">No flashcards generated yet</h2>
+    <div className="text-center mt-16">
+      <h2 className="text-3xl font-bold">Welcome 👋</h2>
 
-      <p className="mt-3">Enter a topic and click Generate.</p>
+      <p className="text-gray-600 mt-4">
+        Enter your study notes and generate flashcards or quizzes.
+      </p>
     </div>
   );
 };
