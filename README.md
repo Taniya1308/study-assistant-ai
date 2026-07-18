@@ -6,12 +6,11 @@ An AI-powered Study Assistant that generates **Flashcards** and **Multiple Choic
 
 ## 🚀 Live Demo
 
-**Frontend:** https://your-vercel-url.vercel.app
+**Frontend:** https://study-assistant-ai-ten.vercel.app
 
 ## Deployment
 
-Backend API: [Study Assistant AI Backend](https://study-assistant-ai-production.up.railway.app)
-
+**Backend API:** https://study-assistant-ai-production.up.railway.app
 ---
 
 ## ✨ Features
