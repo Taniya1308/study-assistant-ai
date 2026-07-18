@@ -40,15 +40,15 @@ const TopicForm = ({ setFlashcards, setQuiz }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 mt-8">
-      <label className="block font-semibold mb-2">Paste your notes</label>
+    <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+      <label className="block text-lg font-bold mb-2">Paste your notes</label>
 
       <textarea
         rows={8}
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Enter your study notes or topic..."
-        className="w-full border rounded-lg p-4 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full border rounded-xl p-4 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <div className="mt-6">
@@ -57,7 +57,7 @@ const TopicForm = ({ setFlashcards, setQuiz }) => {
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
-          className="border rounded-lg px-4 py-2 w-full md:w-60"
+          className="border rounded-xl px-4 py-3 w-full md:w-72"
         >
           <option value="flashcards">Flashcards</option>
           <option value="quiz">Quiz</option>
@@ -67,7 +67,7 @@ const TopicForm = ({ setFlashcards, setQuiz }) => {
       <button
         onClick={handleGenerate}
         disabled={loading}
-        className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg w-full md:w-auto disabled:bg-gray-400"
+        className="mt-8 bg-blue-600 hover:bg-blue-700 transition text-white px-8 py-3 rounded-xl w-full md:w-auto disabled:bg-gray-400"
       >
         {loading ? "Generating..." : "Generate"}
       </button>

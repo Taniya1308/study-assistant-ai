@@ -17,25 +17,26 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
+      <div className="max-w-6xl mx-auto px-6 py-10">
+        <TopicForm
+          setFlashcards={setFlashcards}
+          setQuiz={setQuiz}
+          loading={loading}
+          setLoading={setLoading}
+          error={error}
+          setError={setError}
+        />
 
-      <TopicForm
-        setFlashcards={setFlashcards}
-        setQuiz={setQuiz}
-        loading={loading}
-        setLoading={setLoading}
-        error={error}
-        setError={setError}
-      />
-
-      {loading ? (
-        <Loading />
-      ) : flashcards.length > 0 ? (
-        <FlashcardList flashcards={flashcards} />
-      ) : quiz.length > 0 ? (
-        <Quiz quiz={quiz} />
-      ) : (
-        <EmptyState />
-      )}
+        {loading ? (
+          <Loading />
+        ) : flashcards.length > 0 ? (
+          <FlashcardList flashcards={flashcards} />
+        ) : quiz.length > 0 ? (
+          <Quiz quiz={quiz} />
+        ) : (
+          <EmptyState />
+        )}
+      </div>
 
       <Footer />
     </div>

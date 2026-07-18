@@ -1,10 +1,13 @@
 const EmptyState = () => {
   return (
-    <div className="text-center mt-16">
-      <h2 className="text-3xl font-bold">Welcome 👋</h2>
+    <div className="text-center mt-20">
+      <div className="text-7xl">📖</div>
 
-      <p className="text-gray-600 mt-4">
-        Enter your study notes and generate flashcards or quizzes.
+      <h2 className="text-4xl font-bold mt-6">Start Studying Smarter</h2>
+
+      <p className="mt-4 text-gray-600 text-lg">
+        Paste your notes above and let AI create flashcards or quizzes
+        instantly.
       </p>
     </div>
   );
