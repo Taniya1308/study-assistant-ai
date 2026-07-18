@@ -278,8 +278,6 @@ Generate Quiz
 
 **Taniya Sharma**
 
-B.Tech - Internet of Things (IoT)
-
 Pranveer Singh Institute of Technology (PSIT), Kanpur
 
 GitHub: https://github.com/Taniya1308
@@ -288,4 +286,4 @@ GitHub: https://github.com/Taniya1308
 
 # License
 
-This project is developed for educational and learning purposes.
+This project is developed for frontend developer assignment.
