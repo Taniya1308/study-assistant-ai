@@ -29,28 +29,6 @@ https://study-assistant-ai-production.up.railway.app
 
 ---
 
-## 📸 Screenshots
-
-> Add screenshots after deployment.
-
-### Home Page
-
-![Home](screenshots/home.png)
-
-### Flashcards
-
-![Flashcards](screenshots/flashcards.png)
-
-### Quiz
-
-![Quiz](screenshots/quiz.png)
-
-### Result
-
-![Result](screenshots/result.png)
-
----
-
 # 🛠 Tech Stack
 
 ## Frontend
