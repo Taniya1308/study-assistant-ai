@@ -59,8 +59,19 @@ const Quiz = ({ quiz }) => {
   if (showResult) {
     return (
       <div className="max-w-2xl mx-auto mt-10 bg-white shadow rounded-xl p-8 text-center">
-        <h2 className="text-3xl font-bold">Quiz Finished 🎉</h2>
+        <h2 className="text-2xl font-bold">Quiz</h2>
 
+        <p className="text-gray-600 mt-2">
+          Question {currentQuestion + 1} of {quiz.length}
+        </p>
+        <div className="w-full bg-gray-200 rounded-full h-3 mt-4 mb-8">
+          <div
+            className="bg-blue-600 h-3 rounded-full transition-all duration-500"
+            style={{
+              width: `${((currentQuestion + 1) / quiz.length) * 100}%`,
+            }}
+          ></div>
+        </div>
         <p className="mt-6 text-xl">Your Score</p>
 
         <h1 className="text-5xl font-bold mt-4">
