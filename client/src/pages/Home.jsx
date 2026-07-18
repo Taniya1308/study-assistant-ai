@@ -1,17 +1,26 @@
+import { useState } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import TopicForm from "../components/TopicForm";
 import EmptyState from "../components/EmptyState";
+import FlashcardList from "../components/FlashcardList";
 
 const Home = () => {
+  const [flashcards, setFlashcards] = useState([]);
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
 
-      <main className="max-w-5xl mx-auto px-4 py-8">
-        <TopicForm />
+      <TopicForm setFlashcards={setFlashcards} />
 
+      {flashcards.length === 0 ? (
         <EmptyState />
-      </main>
+      ) : (
+        <FlashcardList flashcards={flashcards} />
+      )}
+
+      <Footer />
     </div>
   );
 };

@@ -1,8 +1,24 @@
 import { useState } from "react";
+import { generateContent } from "../services/api";
 
-const TopicForm = () => {
+const TopicForm = ({ setFlashcards }) => {
   const [text, setText] = useState("");
   const [type, setType] = useState("flashcards");
+
+  const handleGenerate = async () => {
+    try {
+      const response = await generateContent({
+        text: text,
+        type: type,
+      });
+
+      console.log("Response from backend:");
+      setFlashcards(response.data.flashcards);
+    } catch (error) {
+      console.error("Error calling backend:");
+      console.error(error);
+    }
+  };
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6">
@@ -30,7 +46,10 @@ const TopicForm = () => {
         </select>
       </div>
 
-      <button className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg w-full md:w-auto">
+      <button
+        onClick={handleGenerate}
+        className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg w-full md:w-auto"
+      >
         Generate
       </button>
     </div>
