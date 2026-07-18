@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { generateContent } from "../services/api";
 
-const TopicForm = ({ setFlashcards }) => {
+const TopicForm = ({ setFlashcards, setQuiz }) => {
   const [text, setText] = useState("");
   const [type, setType] = useState("flashcards");
 
@@ -13,7 +13,13 @@ const TopicForm = ({ setFlashcards }) => {
       });
 
       console.log("Response from backend:");
-      setFlashcards(response.data.flashcards);
+      if (type === "flashcards") {
+        setFlashcards(response.data.flashcards || []);
+        setQuiz([]);
+      } else {
+        setQuiz(response.data.quiz || []);
+        setFlashcards([]);
+      }
     } catch (error) {
       console.error("Error calling backend:");
       console.error(error);
