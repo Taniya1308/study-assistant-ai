@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import TopicForm from "../components/TopicForm";
 import EmptyState from "../components/EmptyState";
 import FlashcardList from "../components/FlashcardList";
+import Quiz from "../components/Quiz";
 
 const Home = () => {
   const [flashcards, setFlashcards] = useState([]);

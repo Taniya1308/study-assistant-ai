@@ -12,9 +12,10 @@ const TopicForm = ({ setFlashcards, setQuiz }) => {
         type: type,
       });
 
-      console.log("Response from backend:");
+      console.log(response.data);
       if (type === "flashcards") {
-        setFlashcards(response.data.flashcards || []);
+        setFlashcards(response.data.data.flashcards || []);
+        setQuiz(response.data.data.quiz || []);
         setQuiz([]);
       } else {
         setQuiz(response.data.quiz || []);
